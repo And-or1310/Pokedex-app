@@ -8,12 +8,15 @@ import {
     Image,
     ActivityIndicator,
 } from 'react-native';
+import PokemonCard from '../componentes/PokemonCard';
+
+import { useNavigation } from '@react-navigation/native';
 
 import { obtenerPokemons } from '../api/ObtenerPokemon';
 import { Pokemon } from '../types/pokemon';
 
 export default function HomeScreen() {
-
+    const navigation = useNavigation<any>();
     const [pokemons, setPokemons] = useState<Pokemon[]>([]);
     const [cargando, setCargando] = useState(true);
 
@@ -55,40 +58,17 @@ export default function HomeScreen() {
                 }}
                 renderItem={({ item }) => (
 
-                    <View style={styles.card}>
-
-                        <Image
-                            source={{
-                                uri: item.sprites.front_default,
-                            }}
-                            style={styles.imagen}
-                        />
-
-                        <View style={styles.infoContainer}>
-
-                            <Text style={styles.nombre}>
-                                {item.name}
-                            </Text>
-
-                            <Text style={styles.texto}>
-                                ID: {item.id}
-                            </Text>
-
-                            <Text style={styles.texto}>
-                                Tipo: {item.types[0].type.name}
-                            </Text>
-
-                            <Text style={styles.texto}>
-                                Peso: {item.weight}
-                            </Text>
-
-                            <Text style={styles.texto}>
-                                Altura: {item.height}
-                            </Text>
-
-                        </View>
-
-                    </View>
+                    <PokemonCard
+                        pokemon={item}
+                        onPress={() =>
+                            navigation.navigate(
+                                'DetallePokemon',
+                                {
+                                    pokemonId: item.id,
+                                }
+                            )
+                        }
+                    />
                 )}
             />
 

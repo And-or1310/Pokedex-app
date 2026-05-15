@@ -1,5 +1,13 @@
-import HomeScreen from './src/pantallas/Home';
+import { NavigationContainer } from '@react-navigation/native';
+
+import StackNavigation from './src/navigation/StackNavigation';
 
 export default function App() {
-    return <HomeScreen />;
+
+    return (
+
+        <NavigationContainer>
+            <StackNavigation />
+        </NavigationContainer>
+    );
 }
